@@ -1,0 +1,47 @@
+import { createContext } from "react";
+// the management of each/multiple
+export const TracksContext = createContext({
+  tracksData: [],
+  tracksDataError: "",
+  addTracks: () => {},
+  updateTrack: () => {},
+  deleteTrack: () => {},
+});
+
+// this is for the form/change of content
+export const TracksModalContext = createContext({
+  modalShow: false,
+  setModalShow: () => {},
+  modalTrackId: 0,
+  setModalTrackId: () => {},
+  filename: "",
+  setModalFilename: () => {},
+  modalTitle: "",
+  setModalTitle: () => {},
+  modalArtist: "",
+  setModalArtist: () => {},
+  modalBpm: "",
+  setModalBpm: () => {},
+  modalRemixArtist: [],
+  setModalRemixArtist: () => {},
+  composer: "",
+  setComposer: () => {},
+  year: "",
+  setModalYear: () => {},
+  comment: "",
+  setModalComment: () => {},
+  image: "",
+  setModalImage: () => {},
+  initialKey: "",
+  setModalInitialKey: () => {},
+  modalTrackTagIds: [],
+  label: "",
+  setModalLabel: () => {},
+  setModalTrackTagIds: () => {},
+  tagNamesNewValue: "",
+  setTagNamesNewValue: () => {},
+  genre: "",
+  setModalGenre: () => {},
+  contentGroup: "",
+  setModalContentGroup: () => {},
+});

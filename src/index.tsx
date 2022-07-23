@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Homepage from './App'
+import App from "./App";
 
 function render() {
-  ReactDOM.render(<Homepage />, document.getElementById("root"));
+  ReactDOM.render(<App />, document.getElementById("root"));
 }
 
 render();
