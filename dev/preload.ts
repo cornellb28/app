@@ -9,17 +9,14 @@ import { contextBridge, ipcRenderer } from "electron";
 // Create a type that should contain all the data we need to expose in the
 // renderer process using `contextBridge`.
 export type ContextBridgeApi = {
-  // Declare a `readFile` function that will return a promise. This promise
-  // will contain the data of the file read from the main process.
   uploadFiles: () => Promise<string>;
 };
 
 const uploads = "upload-files";
 const exposedApi: ContextBridgeApi = {
-  uploadFiles: async () => {
-    // Send IPC event to main process to read the file.
-    const filePath = await ipcRenderer.invoke(uploads);
-    return filePath;
+  uploadFiles: () => {
+    // Send IPC event to main process to read the file.;
+    return Promise.resolve("hello");
   },
 };
 
@@ -32,3 +29,5 @@ contextBridge.exposeInMainWorld("api", exposedApi);
 // https://blog.totominc.io/blog/how-to-handle-electron-ipc-events-with-typescript
 // https://blog.totominc.io/blog/electron-process-model
 // https://stackoverflow.com/questions/69059668/enableremotemodule-is-missing-from-electron-v14-typescript-type-definitions
+
+// https://www.pluralsight.com/guides/javascript-promise-typeerror:-cannot-read-then-of-undefined

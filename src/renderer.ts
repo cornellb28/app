@@ -1,7 +1,6 @@
 import "../styles/index.css";
 import "./index";
 
-export function upload() {
-  const files = window.api.uploadFiles();
-  console.log(files);
+export async function upload() {
+  await ;
 }

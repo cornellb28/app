@@ -974,8 +974,7 @@ const createWindow = () => {
         height: 600,
         width: 800,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: true,
+            nodeIntegration: false,
             preload: undefined,
         },
     });
@@ -1005,7 +1004,8 @@ electron_1.app.on("activate", () => {
 });
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-electron_1.ipcMain.handle("upload-files", async () => {
+electron_1.ipcMain.handle("upload-files", async (event, args) => {
+    console.log(event, args);
     const dialogButton = await electron_1.dialog.showOpenDialog({
         properties: ["openDirectory", "createDirectory", "openFile"],
     });

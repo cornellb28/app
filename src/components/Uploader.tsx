@@ -5,7 +5,7 @@ import { upload } from "../renderer";
 
 export default function Uploader() {
   const uploadButton = () => {
-    upload();
+    window.api.uploadFiles();
   };
 
   return (

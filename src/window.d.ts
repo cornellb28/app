@@ -2,8 +2,12 @@
 // `ContextBridgeApi` from `Electron.contextBridge` declared in `src/preload.ts`.
 import type { ContextBridgeApi } from "../dev/preload";
 
+export interface IFileAPI {
+  uploadFiles: () => Promise<string>;
+}
+
 declare global {
   interface Window {
-    api: ContextBridgeApi;
+    api: IFileAPI;
   }
 }
