@@ -1,11 +1,9 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 
-function render() {
-  ReactDOM.render(<App />, document.getElementById("root"));
-}
-
-render();
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(<App />);
 
 // https://stackoverflow.com/questions/50432556/cannot-use-jsx-unless-the-jsx-flag-is-provided

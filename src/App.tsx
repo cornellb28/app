@@ -1,5 +1,6 @@
 import React from "react";
+import Uploader from "./components/Uploader";
 
 export default function App() {
-  return <div>Homepage</div>;
+  return <Uploader />;
 }
