@@ -14,10 +14,12 @@ export type ContextBridgeApi = {
   uploadFiles: () => Promise<string>;
 };
 
+const uploads = "upload-files";
 const exposedApi: ContextBridgeApi = {
-  uploadFiles: () => {
+  uploadFiles: async () => {
     // Send IPC event to main process to read the file.
-    return ipcRenderer.invoke("upload-files");
+    const filePath = await ipcRenderer.invoke(uploads);
+    return filePath;
   },
 };
 

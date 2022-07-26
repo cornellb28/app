@@ -1,4 +1,8 @@
 import "../styles/index.css";
 import "./index";
 
-const esse = window.api.uploadFiles();
+const files = window.api.uploadFiles();
+
+export function upload() {
+  console.log("hello");
+}
