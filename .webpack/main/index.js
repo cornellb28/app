@@ -9435,7 +9435,7 @@ async function fetchDirData(data) {
         });
     };
     const result = await scanSelectedDir(data);
-    console.log(result);
+    console.log("result: ", result);
 }
 exports.fetchDirData = fetchDirData;
 function isDirectory(fileNames) {
@@ -9589,6 +9589,11 @@ module.exports = require("util");
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat */
+/******/ 	
+/******/ 	if (typeof __webpack_require__ !== 'undefined') __webpack_require__.ab = __dirname + "/native_modules/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};

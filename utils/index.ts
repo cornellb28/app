@@ -18,7 +18,7 @@ export async function fetchDirData(data: string[]) {
     });
   };
   const result = await scanSelectedDir(data);
-  console.log(result);
+  console.log("result: ", result);
 }
 
 export function isDirectory(fileNames: string[]): boolean {
