@@ -1,19 +1,15 @@
 import * as fs from "fs";
-const fg = require("fast-glob");
+const glob = require("glob");
 
 export function fetchFilesData(data: string[]) {
   console.log("This is File(s):  " + typeof data);
 }
 
-export async function fetchDirData(data: string[]) {
-  const scanSelectedDir = (data: string[]) => {
-    return new Promise<string[]>((resolve, reject) => {
-      data?.forEach((d) => {
-        const folders = fg.sync(`${d}/**/`, {
-          onlyFiles: true,
-          dot: true,
-        });
-        resolve(folders);
+export async function fetchDirData(data: string) {
+  const scanSelectedDir = (data: string) => {
+    return new Promise<string>((resolve, reject) => {
+      glob(`${data}/**/`, (err: Error, files: any) => {
+        resolve(files);
       });
     });
   };
@@ -22,7 +18,7 @@ export async function fetchDirData(data: string[]) {
 }
 
 export function isDirectory(fileNames: string[]): boolean {
-  let check = false;
+  let check: boolean = false;
   for (let file of fileNames) {
     let checkStatus = fs.lstatSync(file).isDirectory() === false ? false : true;
     if (checkStatus === false) return;
