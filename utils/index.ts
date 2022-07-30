@@ -1,23 +1,23 @@
 import * as fs from "fs";
-const glob = require("glob");
+import { glob } from "glob";
+import NodeID3 from "node-id3";
 
-export function fetchFilesData(data: string[]) {
-  console.log("This is File(s):  " + typeof data);
-}
 
-export async function fetchDirData(data: string) {
-  const scanSelectedDir = (data: string) => {
-    return new Promise<string>((resolve, reject) => {
-      glob(`${data}/**/`, (err: Error, files: any) => {
+const fetchFilesData = async (data: string) => {
+  const scanSelectedFiles = (data: string) => {
+    return new Promise<string[]>((resolve, reject) => {
+      glob(`${data}/**/*.m4a`, (err: Error, files: string[]) => {
         resolve(files);
       });
     });
   };
-  const result = await scanSelectedDir(data);
-  console.log("result: ", result);
-}
+  const result: string[] = await scanSelectedFiles(data);
+  return result;
+};
 
-export function isDirectory(fileNames: string[]): boolean {
+export async function fetchDirData(data: string) {}
+
+export const isDirectory = (fileNames: string[]): boolean => {
   let check: boolean = false;
   for (let file of fileNames) {
     let checkStatus = fs.lstatSync(file).isDirectory() === false ? false : true;
@@ -25,6 +25,30 @@ export function isDirectory(fileNames: string[]): boolean {
     check = checkStatus;
   }
   return check;
-}
+};
 
-module.exports = { fetchFilesData, fetchDirData, isDirectory };
+// Lets get the meta-tags with Nodeid-3
+const nodeIDScan = async (path: string) => {
+  return await new Promise<NodeID3.Tags | null>((resolve, reject) => {
+    const options = { noRaw: false };
+    NodeID3.read(path, options, (err, tags) => {
+      try {
+        resolve(tags);
+      } catch (error) {
+        reject(err);
+      }
+    });
+  });
+};
+
+export const getMetaData = async (file: string) => {
+
+};
+
+module.exports = {
+  fetchDirData,
+  isDirectory,
+  getMetaData,
+};
+
+// https://dmitripavlutin.com/return-await-promise-javascript/
