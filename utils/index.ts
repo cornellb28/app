@@ -2,11 +2,30 @@ import * as fs from "fs";
 import { glob } from "glob";
 import NodeID3 from "node-id3";
 
+// Interface can't become an array
+interface trackMeta {
+  trackId: string;
+  size: number;
+  filename: string;
+  title: string | null;
+  artist: string | null;
+  bpm: string | null;
+  contentGroup: string | null;
+  genre: string | null;
+  remixArtist: string | null;
+  composer: string | null;
+  initialKey: string | null;
+  label: string | null;
+  year: string | null;
+  comment: { text: string | null };
+}
+
+let arrayofTracks: trackMeta[] = [];
 
 const fetchFilesData = async (data: string) => {
   const scanSelectedFiles = (data: string) => {
     return new Promise<string[]>((resolve, reject) => {
-      glob(`${data}/**/*.m4a`, (err: Error, files: string[]) => {
+      glob(`${data}/**/*.{m4a,mp3}`, (err: Error, files: string[]) => {
         resolve(files);
       });
     });
@@ -14,8 +33,6 @@ const fetchFilesData = async (data: string) => {
   const result: string[] = await scanSelectedFiles(data);
   return result;
 };
-
-export async function fetchDirData(data: string) {}
 
 export const isDirectory = (fileNames: string[]): boolean => {
   let check: boolean = false;
@@ -29,24 +46,18 @@ export const isDirectory = (fileNames: string[]): boolean => {
 
 // Lets get the meta-tags with Nodeid-3
 const nodeIDScan = async (path: string) => {
-  return await new Promise<NodeID3.Tags | null>((resolve, reject) => {
-    const options = { noRaw: false };
-    NodeID3.read(path, options, (err, tags) => {
-      try {
-        resolve(tags);
-      } catch (error) {
-        reject(err);
-      }
-    });
-  });
+  const options = { noRaw: false };
+  const nodeScan = await NodeID3.read(path);
 };
 
 export const getMetaData = async (file: string) => {
-
+  const fetchFiles = await fetchFilesData(file);
+  for (let f of fetchFiles) {
+    const getNodeID = await nodeIDScan(f);
+  }
 };
 
 module.exports = {
-  fetchDirData,
   isDirectory,
   getMetaData,
 };

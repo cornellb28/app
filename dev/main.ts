@@ -67,7 +67,7 @@ ipcMain.handle("upload-files", async (event, args) => {
   if (selectedPath && isDirectory(selectedPath)) {
     // filesPath will returns either string | string[]
     const [filePath] = selectedPath;
-    
+
     const getData = getMetaData(filePath);
 
     // if Directory? how many?

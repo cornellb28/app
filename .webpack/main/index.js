@@ -8379,14 +8379,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getMetaData = exports.isDirectory = exports.fetchDirData = void 0;
+exports.getMetaData = exports.isDirectory = void 0;
 const fs = __importStar(__webpack_require__(/*! fs */ "fs"));
 const glob_1 = __webpack_require__(/*! glob */ "./node_modules/glob/glob.js");
 const node_id3_1 = __importDefault(__webpack_require__(/*! node-id3 */ "./node_modules/node-id3/index.js"));
 const fetchFilesData = async (data) => {
     const scanSelectedFiles = (data) => {
         return new Promise((resolve, reject) => {
-            (0, glob_1.glob)(`${data}/**/*.m4a`, (err, files) => {
+            (0, glob_1.glob)(`${data}/**/*.{m4a,mp3}`, (err, files) => {
                 resolve(files);
             });
         });
@@ -8394,8 +8394,6 @@ const fetchFilesData = async (data) => {
     const result = await scanSelectedFiles(data);
     return result;
 };
-async function fetchDirData(data) { }
-exports.fetchDirData = fetchDirData;
 const isDirectory = (fileNames) => {
     let check = false;
     for (let file of fileNames) {
@@ -8409,23 +8407,20 @@ const isDirectory = (fileNames) => {
 exports.isDirectory = isDirectory;
 // Lets get the meta-tags with Nodeid-3
 const nodeIDScan = async (path) => {
-    return await new Promise((resolve, reject) => {
-        const options = { noRaw: false };
-        node_id3_1.default.read(path, options, (err, tags) => {
-            try {
-                resolve(tags);
-            }
-            catch (error) {
-                reject(err);
-            }
-        });
-    });
+    const options = { noRaw: false };
+    const nodeScan = await node_id3_1.default.read(path);
+    const tags = {
+        title: ""
+    };
 };
 const getMetaData = async (file) => {
+    const fetchFiles = await fetchFilesData(file);
+    for (let f of fetchFiles) {
+        const getNodeID = await nodeIDScan(f);
+    }
 };
 exports.getMetaData = getMetaData;
 module.exports = {
-    fetchDirData,
     isDirectory: exports.isDirectory,
     getMetaData: exports.getMetaData,
 };
