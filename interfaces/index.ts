@@ -4,7 +4,20 @@
 //
 // import { User } from 'path/to/interfaces';
 
-export type User = {
-  id: number;
-  name: string;
-};
+// Interface can't become an array
+export interface trackMeta {
+  trackId: string;
+  size: number;
+  filename: string;
+  title: string | null;
+  artist: string | null;
+  bpm: string | null;
+  contentGroup: string | null;
+  genre: string | null;
+  remixArtist: string | null;
+  composer: string | null;
+  initialKey: string | null;
+  label: string | null;
+  year: string | null;
+  comment: { text: string | null };
+}

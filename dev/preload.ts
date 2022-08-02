@@ -8,6 +8,7 @@ const uploads: string = "upload-files";
 const exposedApi: ContextBridgeApi = {
   uploadFiles: async () => {
     const filePath = await ipcRenderer.invoke(uploads);
+    console.log("preload:", filePath);
   },
 };
 
