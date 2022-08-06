@@ -1,9 +1,4 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
   background-color: bisque;
 }
 
@@ -24,8 +19,4 @@ body {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-}
-
-.green-border {
-  border-color: green;
 }

@@ -8987,7 +8987,7 @@ const nodeIDScan = async (path) => {
 // convert the object to have all attributes
 function trackConversion(data, fileName, fileSize) {
     return {
-        trackId: (0, uuid_1.v4)(),
+        id: (0, uuid_1.v4)(),
         size: data.size ? data.size : fileSize,
         filename: fileName,
         title: data.title ? data.title : "",

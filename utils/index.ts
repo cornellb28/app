@@ -41,7 +41,7 @@ function trackConversion(
   fileSize: string
 ): trackMeta {
   return {
-    trackId: uuidv4(),
+    id: uuidv4(),
     size: data.size ? data.size : fileSize,
     filename: fileName,
     title: data.title ? data.title : "",
