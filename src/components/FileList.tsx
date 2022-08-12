@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FileCard from "./FileCard";
 import { IState as Props } from "../App";
+import { Row } from "react-bootstrap";
 
 interface IProps {
   tracks: Props["tracks"];
@@ -18,7 +19,7 @@ export default function FileList({ tracks }: IProps): JSX.Element {
       return <FileCard track={track} key={track.id} />;
     });
   };
-  return <div className="track-list">{renderList()}</div>;
+  return <Row>{renderList()}</Row>;
 }
 
 // https://www.youtube.com/watch?v=jrKcJxF0lAU&t=2019s

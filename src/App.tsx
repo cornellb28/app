@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/Sidebar";
-import Uploader from "./components/Uploader";
 import FileList from "./components/FileList";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import FolderList from "./components/FolderList";
 import { trackMeta } from "../interfaces/index";
 
 export interface IState {
@@ -46,6 +46,22 @@ export default function App() {
       year: "1988",
       comment: { text: "comments thats new" },
     },
+    {
+      id: "3",
+      title: "Example3",
+      size: 908778,
+      filename: "/90s/HipHop/filename2.mp3",
+      artist: "Artist2",
+      bpm: "90",
+      contentGroup: "contentGroup",
+      genre: "genre",
+      remixArtist: "remixArtist",
+      composer: "composer",
+      initialKey: "initalKey",
+      label: "label",
+      year: "1968",
+      comment: { text: "comments thats new" },
+    },
   ]);
   return (
     <Container fluid>
@@ -54,12 +70,18 @@ export default function App() {
           <Sidebar />
         </Col>
         <Col xs={10} id="page-content-wrapper">
-          <Uploader />
-          <FileList tracks={tracks} />
+          <Row className="mb-3">
+            <Col md="10">
+              <FolderList />
+              <h3>All Files</h3>
+              <FileList tracks={tracks} />
+            </Col>
+            <Col>Third Row</Col>
+          </Row>
         </Col>
       </Row>
     </Container>
   );
 }
-
+// https://stackoverflow.com/questions/60482018/make-a-sidebar-from-react-bootstrap
 // https://stackoverflow.com/questions/38486660/how-to-add-a-classname-id-to-react-bootstrap-component
