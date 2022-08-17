@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import api from "../../api/tracks";
 import Box from "@mui/material/Box";
 import { Row, Col } from "react-bootstrap";
-import { upload } from "../renderer";
+import { scanDirectory } from "../renderer";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 
 export default function Uploader() {
@@ -18,8 +18,8 @@ export default function Uploader() {
 
   // fetch directory path
   const uploadButton = async () => {
-    const getData = await upload();
-    console.log(getData);
+    await scanDirectory();
+    //console.log(getData);
   };
 
   return (
