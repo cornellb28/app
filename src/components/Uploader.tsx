@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import api from "../../api/tracks";
 import Box from "@mui/material/Box";
 import { Row, Col } from "react-bootstrap";
-import { scanDirectory } from "../utils/index";
+import { scanDirectory } from "../lib/scanDirectory";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 
 export default function Uploader() {

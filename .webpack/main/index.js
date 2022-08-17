@@ -8950,7 +8950,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.scanDirectory = exports.getMetaData = exports.isDirectory = void 0;
+exports.getMetaData = exports.isDirectory = void 0;
 const fs = __importStar(__webpack_require__(/*! fs */ "fs"));
 const glob_1 = __webpack_require__(/*! glob */ "./node_modules/glob/glob.js");
 const node_id3_1 = __importDefault(__webpack_require__(/*! node-id3 */ "./node_modules/node-id3/index.js"));
@@ -9019,11 +9019,6 @@ const getMetaData = async (dir) => {
     return newFiles;
 };
 exports.getMetaData = getMetaData;
-async function scanDirectory() {
-    const returnedTracks = await window.api.uploadFiles();
-    console.log(returnedTracks);
-}
-exports.scanDirectory = scanDirectory;
 // export const saveFileToJson = (path: string, data: trackMeta[]) => {
 //   try {
 //     const fd = fs.openSync(path, "w+");
@@ -9043,7 +9038,6 @@ exports.scanDirectory = scanDirectory;
 module.exports = {
     isDirectory: exports.isDirectory,
     getMetaData: exports.getMetaData,
-    scanDirectory,
 };
 // https://dmitripavlutin.com/return-await-promise-javascript/
 
