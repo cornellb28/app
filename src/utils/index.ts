@@ -79,6 +79,11 @@ export const getMetaData = async (dir: string) => {
   return newFiles;
 };
 
+export async function scanDirectory() {
+  const returnedTracks = await window.api.uploadFiles();
+  console.log(returnedTracks);
+}
+
 // export const saveFileToJson = (path: string, data: trackMeta[]) => {
 //   try {
 //     const fd = fs.openSync(path, "w+");
@@ -100,6 +105,7 @@ export const getMetaData = async (dir: string) => {
 module.exports = {
   isDirectory,
   getMetaData,
+  scanDirectory,
 };
 
 // https://dmitripavlutin.com/return-await-promise-javascript/
