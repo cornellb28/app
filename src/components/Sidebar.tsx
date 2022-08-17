@@ -3,6 +3,8 @@ import SidebarMenu, {
   SidebarMenuBody,
   SidebarMenuNavLink,
 } from "react-bootstrap-sidebar-menu";
+import { AccessAlarm, ThreeDRotation } from "@mui/icons-material";
+
 import Uploader from "./Uploader";
 
 export default function Sidebar() {
@@ -10,7 +12,7 @@ export default function Sidebar() {
     <SidebarMenu variant="dark">
       <SidebarMenu.Header className="mb-5">
         <SidebarMenu.Brand>
-          The Brand Icon <i className="fa-solid faCoffee"></i>
+          The Brand Icon <AccessAlarm fontSize="medium" />
         </SidebarMenu.Brand>
         <SidebarMenu.Toggle />
       </SidebarMenu.Header>

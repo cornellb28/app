@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./components/Sidebar";
 import FileList from "./components/FileList";
 import Container from "react-bootstrap/Container";
@@ -64,19 +63,18 @@ export default function App() {
     },
   ]);
   return (
-    <Container fluid>
+    <Container fluid className="mh-100 main">
       <Row>
         <Col xs={2} id="sidebar-wrapper">
           <Sidebar />
         </Col>
         <Col xs={10} id="page-content-wrapper">
           <Row className="mb-3">
-            <Col md="10">
+            <Col md={12}>
               <FolderList />
               <h3>All Files</h3>
               <FileList tracks={tracks} />
             </Col>
-            <Col>Third Row</Col>
           </Row>
         </Col>
       </Row>

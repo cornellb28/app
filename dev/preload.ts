@@ -7,8 +7,13 @@ export type ContextBridgeApi = {
 const uploads: string = "upload-files";
 const exposedApi: ContextBridgeApi = {
   uploadFiles: async () => {
+    // returns the filepath to scan
     const filePath = await ipcRenderer.invoke(uploads);
-    console.log("preload:", filePath);
+
+    /*
+      this is where I want the data to be added the JSON, and Database      
+    */
+    
   },
 };
 

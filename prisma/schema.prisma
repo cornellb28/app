@@ -1,0 +1,31 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = "file:./dev.db"
+}
+
+model Track {
+    id            String  @id
+    title         String
+    artist        String
+    createdAt     String?
+    fileName      String
+    bpm           String
+    composer      String
+    album         String
+    genre         String
+    fileType      String
+    contentGroup  String
+    initialKey    String
+    length        String
+    performerInfo String
+    remixArtist   String
+    size          String
+    year          String
+    image         String
+    comment       String
+    mediaType     String
+}
