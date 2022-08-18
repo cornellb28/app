@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import path from "path"
 import { glob } from "glob";
 import NodeID3 from "node-id3";
 import { trackMeta } from "../../interfaces/index";
@@ -45,7 +46,7 @@ function trackConversion(
     size: data.size ? data.size : fileSize,
     filename: fileName,
     title: data.title ? data.title : "",
-    artist: data.artist ? data.artist : "",
+    artist: data.artist ? data.artist : "Add Artist Name",
     bpm: data.bpm ? data.bpm : "",
     remixArtist: data.remixArtist ? data.remixArtist : "",
     composer: data.composer ? data.composer : "",
@@ -79,27 +80,17 @@ export const getMetaData = async (dir: string) => {
   return newFiles;
 };
 
-// export const saveFileToJson = (path: string, data: trackMeta[]) => {
-//   try {
-//     const fd = fs.openSync(path, "w+");
-//     fs.writeFileSync(fd, JSON.stringify(data, null, 2));
-//     // Setting timeout
-//     setTimeout(function () {
-//       // Its printed after the file is closed
-//       console.log("closing file now");
+export const saveFileToJson = (data: trackMeta[]) => {
 
-//       // closing file descriptor
-//       fs.closeSync(fd);
-//     }, 10000);
-//     console.log("Program done!");
-//   } catch (error) {
-//     console.log("error: ", error);
-//   }
-// };
+  const DATA_PATH = "../../data/tracks.json";
+  fs.writeFileSync(DATA_PATH, JSON.stringify(data), "utf8");
+  console.log("The file was saved!");
+};
 
 module.exports = {
   isDirectory,
   getMetaData,
+  saveFileToJson,
 };
 
 // https://dmitripavlutin.com/return-await-promise-javascript/

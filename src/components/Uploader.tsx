@@ -1,25 +1,14 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
-import api from "../../api/tracks";
 import Box from "@mui/material/Box";
 import { Row, Col } from "react-bootstrap";
-import { scanDirectory } from "../lib/scanDirectory";
+import { scanDirectory } from "../helpers/helper"
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 
 export default function Uploader() {
-  //State
-  const [tracksData, setTrackData] = useState();
-
-  // Retrieve Tracks
-  const retreiveTracks = async () => {
-    const response = await api.get("/tracks");
-    return response.data;
-  };
 
   // fetch directory path
   const uploadButton = async () => {
-    await scanDirectory();
-    //console.log(getData);
+    const getData = await scanDirectory();
   };
 
   return (

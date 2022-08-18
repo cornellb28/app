@@ -21,7 +21,6 @@ model Track {
     contentGroup  String
     initialKey    String
     length        String
-    performerInfo String
     remixArtist   String
     size          String
     year          String

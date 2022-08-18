@@ -8950,7 +8950,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getMetaData = exports.isDirectory = void 0;
+exports.saveFileToJson = exports.getMetaData = exports.isDirectory = void 0;
 const fs = __importStar(__webpack_require__(/*! fs */ "fs"));
 const glob_1 = __webpack_require__(/*! glob */ "./node_modules/glob/glob.js");
 const node_id3_1 = __importDefault(__webpack_require__(/*! node-id3 */ "./node_modules/node-id3/index.js"));
@@ -8991,7 +8991,7 @@ function trackConversion(data, fileName, fileSize) {
         size: data.size ? data.size : fileSize,
         filename: fileName,
         title: data.title ? data.title : "",
-        artist: data.artist ? data.artist : "",
+        artist: data.artist ? data.artist : "Add Artist Name",
         bpm: data.bpm ? data.bpm : "",
         remixArtist: data.remixArtist ? data.remixArtist : "",
         composer: data.composer ? data.composer : "",
@@ -9019,25 +9019,16 @@ const getMetaData = async (dir) => {
     return newFiles;
 };
 exports.getMetaData = getMetaData;
-// export const saveFileToJson = (path: string, data: trackMeta[]) => {
-//   try {
-//     const fd = fs.openSync(path, "w+");
-//     fs.writeFileSync(fd, JSON.stringify(data, null, 2));
-//     // Setting timeout
-//     setTimeout(function () {
-//       // Its printed after the file is closed
-//       console.log("closing file now");
-//       // closing file descriptor
-//       fs.closeSync(fd);
-//     }, 10000);
-//     console.log("Program done!");
-//   } catch (error) {
-//     console.log("error: ", error);
-//   }
-// };
+const saveFileToJson = (data) => {
+    const DATA_PATH = "../../data/tracks.json";
+    fs.writeFileSync(DATA_PATH, JSON.stringify(data), "utf8");
+    console.log("The file was saved!");
+};
+exports.saveFileToJson = saveFileToJson;
 module.exports = {
     isDirectory: exports.isDirectory,
     getMetaData: exports.getMetaData,
+    saveFileToJson: exports.saveFileToJson,
 };
 // https://dmitripavlutin.com/return-await-promise-javascript/
 
@@ -9347,7 +9338,6 @@ var exports = __webpack_exports__;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const electron_1 = __webpack_require__(/*! electron */ "electron");
 const utils_1 = __webpack_require__(/*! ../src/utils */ "./src/utils/index.ts");
-const tracks = "../data/tracks.json";
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (__webpack_require__(/*! electron-squirrel-startup */ "./node_modules/electron-squirrel-startup/index.js")) {
     // eslint-disable-line global-require
@@ -9360,7 +9350,7 @@ const createWindow = () => {
         width: 800,
         webPreferences: {
             contextIsolation: true,
-            preload: undefined,
+            preload: '/Volumes/MUSIKBUCKET/app/.webpack/renderer/main_window/preload.js',
         },
     });
     // and load the index.html of the app.
@@ -9401,8 +9391,6 @@ electron_1.ipcMain.handle("upload-files", async (event, args) => {
     const selectedPath = dialogButton?.filePaths;
     // Is it a Directory | File?
     if (selectedPath && (0, utils_1.isDirectory)(selectedPath)) {
-        // filesPath will returns either string | string[]
-        // !!!!!!!!!!NEED TO PREPARE FOR string[] only takes string!!!!!!!
         const [folderPath] = selectedPath;
         const audioData = await (0, utils_1.getMetaData)(folderPath);
         return audioData;

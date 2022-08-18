@@ -20,6 +20,7 @@ export interface trackMeta {
   label: string | null;
   year?: string | null;
   comment?: { text: string | null };
+  album?: string;
 }
 
 // export type TrackMeta = trackMeta[];
