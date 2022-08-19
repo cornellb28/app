@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { saveFileToJson } from "../src/utils/index";
+import { saveDataToJson } from "../src/utils/index";
 
 export type ContextBridgeApi = {
   uploadFiles: () => Promise<void>;
@@ -13,7 +13,7 @@ const exposedApi: ContextBridgeApi = {
     /*
       this is where I want the data to be added the JSON, and Database      
     */
-    saveFileToJson(filePath);
+    saveDataToJson(filePath);
   },
 };
 

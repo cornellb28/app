@@ -83,7 +83,7 @@ export const getMetaData = async (dir: string) => {
   return newFiles;
 };
 
-export const saveFileToJson = (data: trackMeta[]) => {
+export const saveDataToJson = (data: trackMeta[]) => {
   fs.writeFileSync("../data/tracks.json", JSON.stringify(data), "utf8");
   console.log("The file was saved!");
 };
@@ -91,7 +91,7 @@ export const saveFileToJson = (data: trackMeta[]) => {
 module.exports = {
   isDirectory,
   getMetaData,
-  saveFileToJson,
+  saveDataToJson,
 };
 
 // https://dmitripavlutin.com/return-await-promise-javascript/

@@ -8950,7 +8950,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.saveFileToJson = exports.getMetaData = exports.isDirectory = void 0;
+exports.saveDataToJson = exports.getMetaData = exports.isDirectory = void 0;
 const fs = __importStar(__webpack_require__(/*! fs */ "fs"));
 const glob_1 = __webpack_require__(/*! glob */ "./node_modules/glob/glob.js");
 const node_id3_1 = __importDefault(__webpack_require__(/*! node-id3 */ "./node_modules/node-id3/index.js"));
@@ -9025,15 +9025,15 @@ const getMetaData = async (dir) => {
     return newFiles;
 };
 exports.getMetaData = getMetaData;
-const saveFileToJson = (data) => {
+const saveDataToJson = (data) => {
     fs.writeFileSync("../data/tracks.json", JSON.stringify(data), "utf8");
     console.log("The file was saved!");
 };
-exports.saveFileToJson = saveFileToJson;
+exports.saveDataToJson = saveDataToJson;
 module.exports = {
     isDirectory: exports.isDirectory,
     getMetaData: exports.getMetaData,
-    saveFileToJson: exports.saveFileToJson,
+    saveDataToJson: exports.saveDataToJson,
 };
 // https://dmitripavlutin.com/return-await-promise-javascript/
 
