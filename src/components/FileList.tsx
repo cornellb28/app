@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import FileCard from "./FileCard";
-import api from "../../api/tracks";
+import api from "../api/tracks";
 import { sortByDate } from "../../src/helpers/helper";
 import { IState as Props } from "../App";
 import { Row } from "react-bootstrap";

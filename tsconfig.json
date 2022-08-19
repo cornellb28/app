@@ -22,7 +22,7 @@
     "incremental": true,
     "isolatedModules": true
   },
-  "files": ["lib/types.d.ts"],
+  "files": ["src/lib/types.d.ts"],
   "include": ["src/**/*", "dev/**/*", "src/renderer.ts"],
   "exclude": ["node_modules"]
 }
