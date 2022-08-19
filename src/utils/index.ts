@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import path from "path"
+import path from "path";
 import { glob } from "glob";
 import NodeID3 from "node-id3";
 import { trackMeta } from "../../interfaces/index";
