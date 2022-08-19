@@ -29,7 +29,7 @@ export default function FileCard({ track }: TRACK) {
       <Card className="p-0 mb-3">
         <Card.Header>
           <p className="text-end m-0">
-            Location: <a href="#">{track.filename}</a>
+            Location: <a href="#">{track.fileName}</a>
           </p>
         </Card.Header>
         <Row>

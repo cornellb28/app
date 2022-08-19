@@ -8989,7 +8989,7 @@ function trackConversion(data, fileName, fileSize) {
     return {
         id: (0, uuid_1.v4)(),
         size: data.size ? data.size : fileSize,
-        filename: fileName,
+        fileName: fileName,
         title: data.title ? data.title : "",
         artist: data.artist ? data.artist : "Add Artist Name",
         bpm: data.bpm ? data.bpm : "",
@@ -9000,6 +9000,10 @@ function trackConversion(data, fileName, fileSize) {
         label: data.publisher ? data.publisher : "",
         year: data.year ? data.year : "",
         genre: data.genre ? data.genre : "default genre",
+        album: data.album ? data.album : "default album",
+        fileType: data.fileType ? data.fileType : "",
+        image: data.image ? data.image : "",
+        length: data.length ? data.length : "",
         comment: {
             text: data.comment?.text ? data.comment?.text : "default comment",
         },
@@ -9010,18 +9014,19 @@ const getMetaData = async (dir) => {
     const fetchFiles = await fetchFilesData(dir);
     let newFiles = [];
     for (let fileName of fetchFiles) {
+        // Getting the fileSize
         const stats = fs.statSync(fileName);
         const filesSizeInBytes = `${stats.size / (1024 * 1000)}MB`;
+        // Scan for metadata
         const audioTags = await nodeIDScan(fileName);
-        const convertedTags = trackConversion(audioTags, fileName, filesSizeInBytes);
-        newFiles.push(convertedTags);
+        const convertTags = trackConversion(audioTags, fileName, filesSizeInBytes);
+        newFiles.push(convertTags);
     }
     return newFiles;
 };
 exports.getMetaData = getMetaData;
 const saveFileToJson = (data) => {
-    const DATA_PATH = "../../data/tracks.json";
-    fs.writeFileSync(DATA_PATH, JSON.stringify(data), "utf8");
+    fs.writeFileSync("../data/tracks.json", JSON.stringify(data), "utf8");
     console.log("The file was saved!");
 };
 exports.saveFileToJson = saveFileToJson;

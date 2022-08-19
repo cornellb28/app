@@ -23,7 +23,7 @@
     "isolatedModules": true
   },
   "files": ["src/lib/types.d.ts"],
-  "include": ["src/**/*", "dev/**/*", "src/renderer.ts"],
+  "include": ["src/**/*", "dev/**/*"],
   "exclude": ["node_modules"]
 }
 

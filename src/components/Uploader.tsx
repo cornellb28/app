@@ -9,6 +9,7 @@ export default function Uploader() {
   // fetch directory path
   const uploadButton = async () => {
     const getData = await scanDirectory();
+    console.log(getData)
   };
 
   return (

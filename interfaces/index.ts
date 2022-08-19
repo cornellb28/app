@@ -8,7 +8,7 @@
 export interface trackMeta {
   id: string;
   size?: number | null;
-  filename: string;
+  fileName: string;
   title?: string | null;
   artist?: string | null;
   bpm?: string | null;
@@ -21,6 +21,9 @@ export interface trackMeta {
   year?: string | null;
   comment?: { text: string | null };
   album?: string;
+  fileType?: string;
+  image?: Buffer | null;
+  length?: string;
 }
 
 // export type TrackMeta = trackMeta[];

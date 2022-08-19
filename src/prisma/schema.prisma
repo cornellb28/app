@@ -8,23 +8,75 @@ datasource db {
 }
 
 model Track {
-    id            String  @id
-    title         String
-    artist        String
-    createdAt     String?
-    fileName      String
-    bpm           String
-    composer      String
-    album         String
-    genre         String
-    fileType      String
-    contentGroup  String
-    initialKey    String
-    length        String
-    remixArtist   String
-    size          String
-    year          String
-    image         String
-    comment       String
-    mediaType     String
+    id           String  @id
+    title        String
+    artist       String
+    createdAt    String?
+    fileName     String
+    bpm          String
+    composer     String
+    album        String
+    genre        String
+    fileType     String
+    contentGroup String
+    initialKey   String
+    length       String
+    remixArtist  String
+    size         String
+    year         String
+    image        Bytes
+    comment      String
+    label        String
+}
+
+model TrackAttribute {
+    id        String @id
+    trackId   String
+    favorite  Int
+    important Int
+    pinned    Int
+    updatedAt String
+}
+
+model TrackChangeLog {
+    id        String @id
+    trackId   String
+    operation String
+    changedAt String
+}
+
+model Tag {
+    id      String @id
+    tagName String
+}
+
+model Genre {
+    id        String @id
+    genreName String
+}
+
+model TrackOnTag {
+    id        String @id
+    trackId   String
+    tagId     String
+    createdAt String
+}
+
+model TrackOnGenre {
+    id        String @id
+    trackId   String
+    genreId   String
+    createdAt String
+}
+
+model Playlist {
+    id           String @id
+    playlistName String
+    createdAt    String
+}
+
+model PlaylistOnTrack {
+    id         String @id
+    playlistId String
+    trackId    String
 }
