@@ -83,7 +83,7 @@
     "sass": "^1.54.1",
     "uuid": "^8.3.2"
   },
-  "prisma" : {
+  "prisma": {
     "seed": "node prisma/seed.ts"
   }
 }

@@ -4,6 +4,7 @@ import { glob } from "glob";
 import NodeID3 from "node-id3";
 import { trackMeta } from "../../interfaces/index";
 import { v4 as uuidv4 } from "uuid";
+import { pick } from "lodash";
 
 // Using Glob to fetch the files from the Directory
 const fetchFilesData = async (data: string) => {
@@ -30,13 +31,37 @@ export const isDirectory = (fileNames: string[]): boolean => {
 };
 
 // Lets get the meta-tags with Nodeid-3
-const nodeIDScan = async (path: string) => {
+const ID3Scan = async (path: string) => {
   const nodeScan = await NodeID3.read(path, { noRaw: false });
   return nodeScan;
 };
 
+function humanFileSize(bytes: number, si = false, dp = 1) {
+  const thresh = si ? 1000 : 1024;
+
+  if (Math.abs(bytes) < thresh) {
+    return bytes + " B";
+  }
+
+  const units = si
+    ? ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+    : ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+  let u = -1;
+  const r = 10 ** dp;
+
+  do {
+    bytes /= thresh;
+    ++u;
+  } while (
+    Math.round(Math.abs(bytes) * r) / r >= thresh &&
+    u < units.length - 1
+  );
+
+  return bytes.toFixed(dp) + " " + units[u];
+}
+
 // convert the object to have all attributes
-function trackConversion(
+function getTrackMetaData(
   data: any,
   fileName: string,
   fileSize: string
@@ -57,35 +82,70 @@ function trackConversion(
     genre: data.genre ? data.genre : "default genre",
     album: data.album ? data.album : "default album",
     fileType: data.fileType ? data.fileType : "",
-    image: data.image ? data.image : "",
+    image: data.image ? data.image.imageBuffer : undefined,
     length: data.length ? data.length : "",
-    comment: {
-      text: data.comment?.text ? data.comment?.text : "default comment",
-    },
+    comment: data.comment ? data.comment.text : "",
   };
 }
 
 // grabbing the files, converting,
 export const getMetaData = async (dir: string) => {
+  const rootPath = dir;
   const fetchFiles = await fetchFilesData(dir);
   let newFiles: trackMeta[] = [];
 
+  const defaultTags = [
+    "title",
+    "artist",
+    "bpm",
+    "genre",
+    "label",
+    "image",
+    "initialKey",
+    "year",
+    "length",
+    "contentGroup",
+    "publisher",
+    "comment",
+    "remixArtist",
+    "composer",
+    "album",
+    "fileType",
+    "length",
+  ];
+
   for (let fileName of fetchFiles) {
     // Getting the fileSize
-    const stats = fs.statSync(fileName);
-    const filesSizeInBytes = `${stats.size / (1024 * 1000)}MB`;
+    const stats = fs.statSync(fileName).size;
+    const filesSizeInBytes = humanFileSize(stats);
 
     // Scan for metadata
-    const audioTags = await nodeIDScan(fileName);
-    const convertTags = trackConversion(audioTags, fileName, filesSizeInBytes);
+    const audioTags = await ID3Scan(fileName);
+    const metaData = pick(audioTags, defaultTags);
+    const { image, comment } = metaData;
+    if (typeof image === "undefined" || typeof image === "string") continue;
+    if (typeof comment === "undefined") continue;
+
+    const { text } = comment;
+    const { imageBuffer } = image;
+
+    // convert Buffer to base64
+    f
+
+    const convertTags = getTrackMetaData(audioTags, fileName, filesSizeInBytes);
     newFiles.push(convertTags);
   }
   return newFiles;
 };
 
 export const saveDataToJson = (data: trackMeta[]) => {
-  fs.writeFileSync("../data/tracks.json", JSON.stringify(data), "utf8");
-  console.log("The file was saved!");
+  const jsonData = path.join(process.cwd(), "src/data/tracks.json");
+  try {
+    fs.writeFileSync(jsonData, JSON.stringify(data, null, 2), "utf8");
+    console.log("The file was saved!");
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 module.exports = {
@@ -95,3 +155,6 @@ module.exports = {
 };
 
 // https://dmitripavlutin.com/return-await-promise-javascript/
+// https://stackoverflow.com/questions/36093042/how-do-i-add-to-an-existing-json-file-in-node-js
+// https://github.com/sindresorhus/load-json-file/issues/9
+// https://dev.to/dnature/convert-a-base64-data-into-an-image-in-node-js-3f88

@@ -7,22 +7,22 @@
 // Interface can't become an array
 export interface trackMeta {
   id: string;
-  size?: number | null;
+  size?: string | undefined;
   fileName: string;
-  title?: string | null;
-  artist?: string | null;
-  bpm?: string | null;
-  contentGroup?: string | null;
-  genre?: string | null;
-  remixArtist?: string | null;
-  composer?: string | null;
-  initialKey?: string | null;
-  label: string | null;
-  year?: string | null;
-  comment?: { text: string | null };
+  title?: string | undefined;
+  artist?: string | undefined;
+  bpm?: string | undefined;
+  contentGroup?: string | undefined;
+  genre?: string | undefined;
+  remixArtist?: string | undefined;
+  composer?: string | undefined;
+  initialKey?: string | undefined;
+  label: string | undefined;
+  year?: string | undefined;
+  comment?: { text: string } | null;
   album?: string;
   fileType?: string;
-  image?: Buffer | null;
+  image?: { imageBuffer: Buffer } | undefined;
   length?: string;
 }
 

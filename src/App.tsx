@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import FileList from "./components/FileList";
 import Container from "react-bootstrap/Container";
@@ -6,62 +6,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FolderList from "./components/FolderList";
 import { trackMeta } from "../interfaces/index";
-
-export interface IState {
-  tracks: trackMeta[];
-}
+import tracks from "./data/tracks.json";
 
 export default function App() {
-  const [tracks, setTracks] = useState<IState["tracks"] | []>([
-    {
-      id: "1",
-      title: "Example",
-      size: 908778,
-      fileName: "/80s/HipHop/filename.mp3",
-      artist: "Artist",
-      bpm: "90",
-      contentGroup: "contentGroup",
-      genre: "genre",
-      remixArtist: "remixArtist",
-      composer: "composer",
-      initialKey: "initalKey",
-      label: "label",
-      year: "1988",
-      comment: { text: "comments thats new" },
-    },
-    {
-      id: "2",
-      title: "Example",
-      size: 908778,
-      fileName: "/90s/HipHop/filename.mp3",
-      artist: "Artist",
-      bpm: "90",
-      contentGroup: "contentGroup",
-      genre: "genre",
-      remixArtist: "remixArtist",
-      composer: "composer",
-      initialKey: "initalKey",
-      label: "label",
-      year: "1988",
-      comment: { text: "comments thats new" },
-    },
-    {
-      id: "3",
-      title: "Example3",
-      size: 908778,
-      fileName: "/90s/HipHop/filename2.mp3",
-      artist: "Artist2",
-      bpm: "90",
-      contentGroup: "contentGroup",
-      genre: "genre",
-      remixArtist: "remixArtist",
-      composer: "composer",
-      initialKey: "initalKey",
-      label: "label",
-      year: "1968",
-      comment: { text: "comments thats new" },
-    },
-  ]);
+
+
   return (
     <Container fluid className="mh-100 main">
       <Row>
@@ -73,7 +22,7 @@ export default function App() {
             <Col md={12}>
               <FolderList />
               <h3>All Files</h3>
-              <FileList tracks={tracks} />
+              <FileList />
             </Col>
           </Row>
         </Col>

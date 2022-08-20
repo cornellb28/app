@@ -1,39 +1,43 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import FileCard from "./FileCard";
-import api from "../api/tracks";
-import { sortByDate } from "../../src/helpers/helper";
-import { IState as Props } from "../App";
 import { Row } from "react-bootstrap";
+import { trackMeta } from "../../interfaces/";
+import tracks from '../data/tracks.json'
 
-interface IProps {
-  tracks: Props["tracks"];
+export interface IState {
+  tracks: trackMeta[];
 }
 
-export default function FileList({ tracks }: IProps) {
-  const [tracksData, setTrackData] = useState();
-  // Retrieve Tracks
-  const retreiveTracks = async () => {
-    const response = await api.get("/tracks");
-    return response.data;
-  };
+export default function FileList() {
+  const [tracksData, setTracksData] = useState<IState["tracks"] | []>([]);
+  const [tracksDataError, setTracksDataError] = useState();
 
   useEffect(() => {
-    const getAllTracks = async () => {
-      const allTracks = await retreiveTracks();
-      if (!allTracks) return;
-      setTrackData(allTracks);
-    };
-
-    getAllTracks();
+    async function getData() {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      try {
+        setTracksData(tracks);
+      } catch (error) {
+        setTracksDataError(error);
+      }
+    }
+    getData();
   }, []);
 
-  const renderList = (): JSX.Element[] => {
-    return tracks.map((track) => {
-      return <FileCard track={track} key={track.id} />;
-    });
-  };
-  return <Row>{renderList()}</Row>;
+  if (tracksDataError) {
+    return <div>error: {tracksDataError}</div>;
+  }
+
+  if (!tracksData) return <div>...loading</div>;
+console.log(tracksData)
+  return (
+    <Row>
+      {tracksData.map((track) => (
+        <FileCard track={track} key={track.id} />
+      ))}
+    </Row>
+  );
 }
 
 // https://www.youtube.com/watch?v=jrKcJxF0lAU&t=2019s

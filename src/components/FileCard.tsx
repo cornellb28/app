@@ -8,21 +8,6 @@ type TRACK = {
   track: trackMeta;
 };
 
-// id: "1",
-//       title: "Example",
-//       size: 908778,
-//       filename: "/80s/HipHop/filename.mp3",
-//       artist: "Artist",
-//       bpm: "90",
-//       contentGroup: "contentGroup",
-//       genre: "genre",
-//       remixArtist: "remixArtist",
-//       composer: "composer",
-//       initialKey: "initalKey",
-//       label: "label",
-//       year: "1988",
-//       comment: { text: "comments thats new" },
-
 export default function FileCard({ track }: TRACK) {
   return (
     <Col md="4">
@@ -54,22 +39,6 @@ export default function FileCard({ track }: TRACK) {
                 <div className="p-1 d-flex me-auto">
                   <span className="track-label me-2">Genre:</span>
                   <span className="track-value">{track.genre}</span>
-                </div>
-                <div className="p-1 d-flex me-auto">
-                  <span className="track-label me-2">Size:</span>
-                  <span className="track-value">{track.size}</span>
-                </div>
-                <div className="p-1 d-flex me-auto">
-                  <span className="track-label me-2">Size:</span>
-                  <span className="track-value">{track.size}</span>
-                </div>
-                <div className="p-1 d-flex me-auto">
-                  <span className="track-label me-2">Size:</span>
-                  <span className="track-value">{track.size}</span>
-                </div>
-                <div className="p-1 d-flex me-auto">
-                  <span className="track-label me-2">Size:</span>
-                  <span className="track-value">{track.size}</span>
                 </div>
               </div>
             </Card.Body>
