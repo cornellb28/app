@@ -61,11 +61,7 @@ function humanFileSize(bytes: number, si = false, dp = 1) {
 }
 
 // convert the object to have all attributes
-function getTrackMetaData(
-  data: any,
-  fileName: string,
-  fileSize: string
-): trackMeta {
+function getTrackMetaData(data): trackMeta {
   return {
     id: uuidv4(),
     size: data.size ? data.size : fileSize,
@@ -130,9 +126,17 @@ export const getMetaData = async (dir: string) => {
     const { imageBuffer } = image;
 
     // convert Buffer to base64
-    f
+    const base64 = imageBuffer.toString("base64");
+    const imageData = `data:image/png;base64,${base64}`;
 
-    const convertTags = getTrackMetaData(audioTags, fileName, filesSizeInBytes);
+    const data = {
+      imageData,
+      text,
+      filesSizeInBytes,
+      metaData,
+      fileName,
+    };
+    const convertTags = getTrackMetaData(data);
     newFiles.push(convertTags);
   }
   return newFiles;
@@ -158,3 +162,5 @@ module.exports = {
 // https://stackoverflow.com/questions/36093042/how-do-i-add-to-an-existing-json-file-in-node-js
 // https://github.com/sindresorhus/load-json-file/issues/9
 // https://dev.to/dnature/convert-a-base64-data-into-an-image-in-node-js-3f88
+// https://stackoverflow.com/questions/18884840/adding-a-new-array-element-to-a-json-object
+// https://stackoverflow.com/questions/40381507/convert-base64-image-data-to-png
