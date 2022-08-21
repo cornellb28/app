@@ -1,10 +1,40 @@
 import * as fs from "fs";
 import path from "path";
 import { glob } from "glob";
-import NodeID3 from "node-id3";
-import { trackMeta } from "../../interfaces/index";
+import NodeID3, { Tags } from "node-id3";
+import { trackMeta } from "../../interfaces/";
 import { v4 as uuidv4 } from "uuid";
 import { pick } from "lodash";
+
+interface DataSource {
+  imageData: string;
+  text: string;
+  filesSizeInBytes: string;
+  metaData: Partial<Tags>;
+  fileName: string;
+}
+
+export interface trackMetaConverted {
+  id: string;
+  size: string | undefined;
+  fileName: string;
+  title: string | undefined;
+  artist: string | undefined;
+  bpm: string | undefined;
+  contentGroup: string | undefined;
+  genre: string | undefined;
+  remixArtist: string | undefined;
+  composer: string | undefined;
+  initialKey: string | undefined;
+  label: string | undefined;
+  year: string | undefined;
+  comment: string | null;
+  album: string;
+  publisher: string;
+  fileType: string;
+  image: string | undefined;
+  length: string;
+}
 
 // Using Glob to fetch the files from the Directory
 const fetchFilesData = async (data: string) => {
@@ -61,26 +91,27 @@ function humanFileSize(bytes: number, si = false, dp = 1) {
 }
 
 // convert the object to have all attributes
-function getTrackMetaData(data): trackMeta {
+function getTrackMetaData({imageData, text,filesSizeInBytes, metaData, fileName}: DataSource): trackMetaConverted {
   return {
     id: uuidv4(),
-    size: data.size ? data.size : fileSize,
+    size: filesSizeInBytes ? filesSizeInBytes : "",
     fileName: fileName,
-    title: data.title ? data.title : "",
-    artist: data.artist ? data.artist : "Add Artist Name",
-    bpm: data.bpm ? data.bpm : "",
-    remixArtist: data.remixArtist ? data.remixArtist : "",
-    composer: data.composer ? data.composer : "",
-    contentGroup: data.contentGroup ? data.contentGroup : "",
-    initialKey: data.initialKey ? data.initialKey : "",
-    label: data.publisher ? data.publisher : "",
-    year: data.year ? data.year : "",
-    genre: data.genre ? data.genre : "default genre",
-    album: data.album ? data.album : "default album",
-    fileType: data.fileType ? data.fileType : "",
-    image: data.image ? data.image.imageBuffer : undefined,
-    length: data.length ? data.length : "",
-    comment: data.comment ? data.comment.text : "",
+    title: metaData.title ? metaData.title : "",
+    artist: metaData.artist ? metaData.artist : "Add Artist Name",
+    bpm: metaData.bpm ? metaData.bpm : "",
+    remixArtist: metaData.remixArtist ? metaData.remixArtist : "",
+    composer: metaData.composer ? metaData.composer : "",
+    contentGroup: metaData.contentGroup ? metaData.contentGroup : "",
+    initialKey: metaData.initialKey ? metaData.initialKey : "",
+    label: metaData.publisher ? metaData.publisher : "",
+    year: metaData.year ? metaData.year : "",
+    genre: metaData.genre ? metaData.genre : "default genre",
+    album: metaData.album ? metaData.album : "default album",
+    fileType: metaData.fileType ? metaData.fileType : "",
+    image: imageData ? imageData : undefined,
+    length: metaData.length ? metaData.length : "",
+    comment: text ? text : "",
+    publisher: metaData.publisher ? metaData.publisher : ""
   };
 }
 
@@ -129,13 +160,14 @@ export const getMetaData = async (dir: string) => {
     const base64 = imageBuffer.toString("base64");
     const imageData = `data:image/png;base64,${base64}`;
 
-    const data = {
+    const data: DataSource = {
       imageData,
       text,
       filesSizeInBytes,
       metaData,
       fileName,
     };
+
     const convertTags = getTrackMetaData(data);
     newFiles.push(convertTags);
   }

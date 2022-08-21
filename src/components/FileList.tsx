@@ -17,6 +17,7 @@ export default function FileList() {
     async function getData() {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       try {
+        // @ts-ignore
         setTracksData(tracks);
       } catch (error) {
         setTracksDataError(error);

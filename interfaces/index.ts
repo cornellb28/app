@@ -19,12 +19,15 @@ export interface trackMeta {
   initialKey?: string | undefined;
   label: string | undefined;
   year?: string | undefined;
-  comment?: { text: string } | null;
+  comment?: string | null;
   album?: string;
+  publisher?: string;
   fileType?: string;
   image?: { imageBuffer: Buffer } | undefined;
   length?: string;
 }
+
+
 
 // export type TrackMeta = trackMeta[];
 
