@@ -1,0 +1,30 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+self["webpackHotUpdatemb_app"]("main_window",{
+
+/***/ "./src/App.tsx":
+/*!*********************!*\
+  !*** ./src/App.tsx ***!
+  \*********************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\nconst Sidebar_1 = __importDefault(__webpack_require__(/*! ./components/Sidebar */ \"./src/components/Sidebar.tsx\"));\nconst FileList_1 = __importDefault(__webpack_require__(/*! ./components/FileList */ \"./src/components/FileList.tsx\"));\nconst Container_1 = __importDefault(__webpack_require__(/*! react-bootstrap/Container */ \"./node_modules/react-bootstrap/esm/Container.js\"));\nconst Row_1 = __importDefault(__webpack_require__(/*! react-bootstrap/Row */ \"./node_modules/react-bootstrap/esm/Row.js\"));\nconst Col_1 = __importDefault(__webpack_require__(/*! react-bootstrap/Col */ \"./node_modules/react-bootstrap/esm/Col.js\"));\nconst FolderList_1 = __importDefault(__webpack_require__(/*! ./components/FolderList */ \"./src/components/FolderList.tsx\"));\nfunction App() {\n    return (react_1.default.createElement(Container_1.default, { fluid: true, className: \"main-app\" },\n        react_1.default.createElement(Row_1.default, { className: \"vh-100\" },\n            react_1.default.createElement(Col_1.default, { xs: 2, id: \"sidebar-wrapper\", className: \"d-flex bg-dark text-white flex-shrink flex-column p-3\" },\n                react_1.default.createElement(Sidebar_1.default, null)),\n            react_1.default.createElement(Col_1.default, { xs: 10, id: \"page-content-wrapper\" },\n                react_1.default.createElement(Row_1.default, null,\n                    react_1.default.createElement(Col_1.default, { md: 12 },\n                        react_1.default.createElement(FolderList_1.default, null),\n                        react_1.default.createElement(\"hr\", null),\n                        react_1.default.createElement(FileList_1.default, null)))),\n            \"); } // https://stackoverflow.com/questions/60482018/make-a-sidebar-from-react-bootstrap // https://stackoverflow.com/questions/38486660/how-to-add-a-classname-id-to-react-bootstrap-component\")));\n}\nexports[\"default\"] = App;\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvQXBwLnRzeC5qcyIsIm1hcHBpbmdzIjoiOzs7OztBQUFBLG1HQUFtRDtBQUNuRCxtSEFBMkM7QUFDM0Msc0hBQTZDO0FBQzdDLDZJQUFrRDtBQUNsRCwySEFBc0M7QUFDdEMsMkhBQXNDO0FBQ3RDLDRIQUFpRDtBQUlqRCxTQUF3QixHQUFHO0lBQ3pCLE9BQU8sQ0FDTCw4QkFBQyxtQkFBUyxJQUFDLEtBQUssUUFBQyxTQUFTLEVBQUMsVUFBVTtRQUNuQyw4QkFBQyxhQUFHLElBQUMsU0FBUyxFQUFDLFFBQVE7WUFDckIsOEJBQUMsYUFBRyxJQUNGLEVBQUUsRUFBRSxDQUFDLEVBQ0wsRUFBRSxFQUFDLGlCQUFpQixFQUNwQixTQUFTLEVBQUMsdURBQXVEO2dCQUVqRSw4QkFBQyxpQkFBTyxPQUFHLENBQ1A7WUFDTiw4QkFBQyxhQUFHLElBQUMsRUFBRSxFQUFFLEVBQUUsRUFBRSxFQUFFLEVBQUMsc0JBQXNCO2dCQUNwQyw4QkFBQyxhQUFHO29CQUNGLDhCQUFDLGFBQUcsSUFBQyxFQUFFLEVBQUUsRUFBRTt3QkFDVCw4QkFBQyxvQkFBVSxPQUFHO3dCQUNkLHlDQUFNO3dCQUNOLDhCQUFDLGtCQUFRLE9BQUcsQ0FFWixDQUNGLENBQ0k7OE1BS2hCO0FBQUEsQ0FBQztBQXpCRCx5QkF5QkEiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9tYi1hcHAvLi9zcmMvQXBwLnRzeD8xYzZkIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCwgeyB1c2VTdGF0ZSwgdXNlRWZmZWN0IH0gZnJvbSBcInJlYWN0XCI7XG5pbXBvcnQgU2lkZWJhciBmcm9tIFwiLi9jb21wb25lbnRzL1NpZGViYXJcIjtcbmltcG9ydCBGaWxlTGlzdCBmcm9tIFwiLi9jb21wb25lbnRzL0ZpbGVMaXN0XCI7XG5pbXBvcnQgQ29udGFpbmVyIGZyb20gXCJyZWFjdC1ib290c3RyYXAvQ29udGFpbmVyXCI7XG5pbXBvcnQgUm93IGZyb20gXCJyZWFjdC1ib290c3RyYXAvUm93XCI7XG5pbXBvcnQgQ29sIGZyb20gXCJyZWFjdC1ib290c3RyYXAvQ29sXCI7XG5pbXBvcnQgRm9sZGVyTGlzdCBmcm9tIFwiLi9jb21wb25lbnRzL0ZvbGRlckxpc3RcIjtcbmltcG9ydCB7IHRyYWNrTWV0YSB9IGZyb20gXCIuLi9pbnRlcmZhY2VzL2luZGV4XCI7XG5pbXBvcnQgdHJhY2tzIGZyb20gXCIuL2RhdGEvdHJhY2tzLmpzb25cIjtcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gQXBwKCkge1xuICByZXR1cm4gKFxuICAgIDxDb250YWluZXIgZmx1aWQgY2xhc3NOYW1lPVwibWFpbi1hcHBcIj5cbiAgICAgIDxSb3cgY2xhc3NOYW1lPVwidmgtMTAwXCI+XG4gICAgICAgIDxDb2xcbiAgICAgICAgICB4cz17Mn1cbiAgICAgICAgICBpZD1cInNpZGViYXItd3JhcHBlclwiXG4gICAgICAgICAgY2xhc3NOYW1lPVwiZC1mbGV4IGJnLWRhcmsgdGV4dC13aGl0ZSBmbGV4LXNocmluayBmbGV4LWNvbHVtbiBwLTNcIlxuICAgICAgICA+XG4gICAgICAgICAgPFNpZGViYXIgLz5cbiAgICAgICAgPC9Db2w+XG4gICAgICAgIDxDb2wgeHM9ezEwfSBpZD1cInBhZ2UtY29udGVudC13cmFwcGVyXCI+XG4gICAgICAgICAgPFJvdz5cbiAgICAgICAgICAgIDxDb2wgbWQ9ezEyfT5cbiAgICAgICAgICAgICAgPEZvbGRlckxpc3QgLz5cbiAgICAgICAgICAgICAgPGhyIC8+XG4gICAgICAgICAgICAgIDxGaWxlTGlzdCAvPlxuXG4gICAgICAgIDwvQ29sPlxuICAgICAgPC9Sb3c+XG4gICAgPC9Db250YWluZXI+XG4gICk7XG59XG4vLyBodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy82MDQ4MjAxOC9tYWtlLWEtc2lkZWJhci1mcm9tLXJlYWN0LWJvb3RzdHJhcFxuLy8gaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzg0ODY2NjAvaG93LXRvLWFkZC1hLWNsYXNzbmFtZS1pZC10by1yZWFjdC1ib290c3RyYXAtY29tcG9uZW50XG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/App.tsx\n");
+
+/***/ })
+
+},
+/******/ function(__webpack_require__) { // webpackRuntimeModules
+/******/ /* webpack/runtime/getFullHash */
+/******/ (() => {
+/******/ 	__webpack_require__.h = () => ("9944fd7dc816eee2b4b7")
+/******/ })();
+/******/ 
+/******/ }
+);

@@ -9,6 +9,9 @@
 @import "../../node_modules/bootstrap/scss/root";
 
 @import "./app-sidebar";
+@import "./app_upload";
+@import "./app_content";
+
 @font-face {
   font-family: "Poppins";
   src: url("../fonts/Poppins-Black.ttf");

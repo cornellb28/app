@@ -31,13 +31,12 @@ export default function FileList() {
   }
 
   if (!tracksData) return <div>...loading</div>;
-  console.log(tracksData);
   return (
-    <Row className="p-3">
+    <>
       {tracksData.map((track) => (
         <FileCard track={track} key={track.id} />
       ))}
-    </Row>
+    </>
   );
 }
 

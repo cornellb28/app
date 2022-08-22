@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import FileList from "./components/FileList";
+import Uploader from "./components/Uploader";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -19,14 +20,11 @@ export default function App() {
         >
           <Sidebar />
         </Col>
-        <Col xs={10} id="page-content-wrapper">
-          <Row>
-            <Col md={12}>
-              <FolderList />
-              <hr />
-              <FileList />
-            </Col>
-          </Row>
+        <Col xs={10} id="page-content-wrapper" className="p-0">
+          <Uploader />
+          <FolderList />
+          <hr />
+          <FileList />
         </Col>
       </Row>
     </Container>
