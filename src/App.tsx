@@ -9,19 +9,21 @@ import { trackMeta } from "../interfaces/index";
 import tracks from "./data/tracks.json";
 
 export default function App() {
-
-
   return (
-    <Container fluid className="mh-100 main">
-      <Row>
-        <Col xs={2} id="sidebar-wrapper">
+    <Container fluid className="main-app">
+      <Row className="vh-100">
+        <Col
+          xs={2}
+          id="sidebar-wrapper"
+          className="d-flex bg-dark text-white flex-shrink flex-column p-3"
+        >
           <Sidebar />
         </Col>
         <Col xs={10} id="page-content-wrapper">
-          <Row className="mb-3">
+          <Row>
             <Col md={12}>
               <FolderList />
-              <h3>All Files</h3>
+              <hr />
               <FileList />
             </Col>
           </Row>

@@ -27,6 +27,19 @@ rules.push(
         loader: "file-loader",
       },
     ],
+  },
+  {
+    test: /\.(woff|woff2|ttf|otf|eot)$/,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          publicPath: "./../",
+          name: "./fonts/[hash].[ext]",
+          //outputPath: ''
+        },
+      },
+    ],
   }
 );
 

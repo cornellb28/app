@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import FileCard from "./FileCard";
 import { Row } from "react-bootstrap";
 import { trackMeta } from "../../interfaces/";
-import tracks from '../data/tracks.json'
+import tracks from "../data/tracks.json";
 
 export interface IState {
   tracks: trackMeta[];
@@ -31,9 +31,9 @@ export default function FileList() {
   }
 
   if (!tracksData) return <div>...loading</div>;
-console.log(tracksData)
+  console.log(tracksData);
   return (
-    <Row>
+    <Row className="p-3">
       {tracksData.map((track) => (
         <FileCard track={track} key={track.id} />
       ))}

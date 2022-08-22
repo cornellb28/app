@@ -18491,7 +18491,7 @@ function humanFileSize(bytes, si = false, dp = 1) {
     return bytes.toFixed(dp) + " " + units[u];
 }
 // convert the object to have all attributes
-function getTrackMetaData({ imageData, text, filesSizeInBytes, metaData, fileName }) {
+function getTrackMetaData({ imageData, text, filesSizeInBytes, metaData, fileName, }) {
     return {
         id: (0, uuid_1.v4)(),
         size: filesSizeInBytes ? filesSizeInBytes : "",
@@ -18511,7 +18511,7 @@ function getTrackMetaData({ imageData, text, filesSizeInBytes, metaData, fileNam
         image: imageData ? imageData : undefined,
         length: metaData.length ? metaData.length : "",
         comment: text ? text : "",
-        publisher: metaData.publisher ? metaData.publisher : ""
+        publisher: metaData.publisher ? metaData.publisher : "",
     };
 }
 // grabbing the files, converting,
@@ -18563,6 +18563,7 @@ const getMetaData = async (dir) => {
             fileName,
         };
         const convertTags = getTrackMetaData(data);
+        // @ts-ignore
         newFiles.push(convertTags);
     }
     return newFiles;
@@ -18903,6 +18904,10 @@ module.exports = JSON.parse('[["0","\\u0000",128],["a1","｡",62],["8140","　�
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat */
+/******/ 	
+/******/ 	if (typeof __webpack_require__ !== 'undefined') __webpack_require__.ab = __dirname + "/native_modules/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};

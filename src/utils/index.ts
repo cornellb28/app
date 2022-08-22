@@ -91,7 +91,13 @@ function humanFileSize(bytes: number, si = false, dp = 1) {
 }
 
 // convert the object to have all attributes
-function getTrackMetaData({imageData, text,filesSizeInBytes, metaData, fileName}: DataSource): trackMetaConverted {
+function getTrackMetaData({
+  imageData,
+  text,
+  filesSizeInBytes,
+  metaData,
+  fileName,
+}: DataSource): trackMetaConverted {
   return {
     id: uuidv4(),
     size: filesSizeInBytes ? filesSizeInBytes : "",
@@ -111,7 +117,7 @@ function getTrackMetaData({imageData, text,filesSizeInBytes, metaData, fileName}
     image: imageData ? imageData : undefined,
     length: metaData.length ? metaData.length : "",
     comment: text ? text : "",
-    publisher: metaData.publisher ? metaData.publisher : ""
+    publisher: metaData.publisher ? metaData.publisher : "",
   };
 }
 
@@ -169,6 +175,7 @@ export const getMetaData = async (dir: string) => {
     };
 
     const convertTags = getTrackMetaData(data);
+    // @ts-ignore
     newFiles.push(convertTags);
   }
   return newFiles;

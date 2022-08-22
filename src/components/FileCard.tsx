@@ -1,8 +1,6 @@
+import * as React from "react";
 import { trackMeta } from "../../interfaces";
-import Card from "react-bootstrap/Card";
-import { Col, Row } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
-import React from "react";
+import { Col, Row, Card, Image } from "react-bootstrap";
 
 type TRACK = {
   track: trackMeta;
@@ -10,7 +8,7 @@ type TRACK = {
 
 export default function FileCard({ track }: TRACK) {
   return (
-    <Col md="4">
+    <Col md="12">
       <Card className="p-0 mb-3">
         <Card.Header>
           <p className="text-end m-0">
@@ -19,7 +17,7 @@ export default function FileCard({ track }: TRACK) {
         </Card.Header>
         <Row>
           <Col lg="2">
-            <Image fluid src="" />
+            <Image fluid src={track.image} />
           </Col>
           <Col md="8">
             <Card.Body className="p-0">
