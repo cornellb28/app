@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import { styled } from "@mui/material/styles";
 import { trackMeta } from "../../interfaces";
 import { Col } from "react-bootstrap";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -18,6 +19,15 @@ type TRACK = {
   track: trackMeta;
 };
 
+interface ChipData {
+  key: number;
+  label: string;
+}
+
+const ListItem = styled("li")(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
+
 export default function FileCard({ track }: TRACK) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -26,6 +36,19 @@ export default function FileCard({ track }: TRACK) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const [chipData, setChipData] = React.useState<readonly ChipData[]>([
+    { key: 0, label: "Hip Hop" },
+    { key: 1, label: "Soul" },
+    { key: 2, label: "Jazz" },
+    { key: 3, label: "Classics" },
+    { key: 4, label: "Indie Dance" },
+  ]);
+
+  const handleDelete = (chipToDelete: ChipData) => () => {
+    setChipData((chips) =>
+      chips.filter((chip) => chip.key !== chipToDelete.key)
+    );
   };
   return (
     <Col md={4}>
@@ -55,6 +78,22 @@ export default function FileCard({ track }: TRACK) {
             {track.title}
           </Typography>
         </CardContent>
+        <div>
+          {chipData.map((data) => {
+            let icon;
+            return (
+              <ListItem key={data.key}>
+                <Chip
+                  icon={icon}
+                  label={data.label}
+                  onDelete={
+                    data.label === "React" ? undefined : handleDelete(data)
+                  }
+                />
+              </ListItem>
+            );
+          })}
+        </div>
       </Card>
     </Col>
   );
