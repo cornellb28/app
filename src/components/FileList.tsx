@@ -32,11 +32,11 @@ export default function FileList() {
 
   if (!tracksData) return <div>...loading</div>;
   return (
-    <>
+    <Row>
       {tracksData.map((track) => (
         <FileCard track={track} key={track.id} />
       ))}
-    </>
+    </Row>
   );
 }
 

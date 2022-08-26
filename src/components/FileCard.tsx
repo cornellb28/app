@@ -1,53 +1,61 @@
 import * as React from "react";
+import { useState } from "react";
 import { trackMeta } from "../../interfaces";
-import { Col, Row, Card, Image } from "react-bootstrap";
+import { Col } from "react-bootstrap";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Chip from "@mui/material/Chip";
+import {
+  Box,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  IconButton,
+  Fab
+} from "@mui/material";
 
 type TRACK = {
   track: trackMeta;
 };
 
 export default function FileCard({ track }: TRACK) {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
-    <Card className="p-0 mb-3">
-      <Card.Header>
-        <p className="text-end m-0">
-          Location: <a href="#">{track.fileName}</a>
-        </p>
-      </Card.Header>
-      <Row>
-        <Col lg="2">
-          <Image fluid src={track.image} />
-        </Col>
-        <Col md="8">
-          <Card.Body className="p-0">
-            <div className="attributes d-flex flex-row flex-wrap justify-content-start">
-              <div className="p-1 d-flex me-auto">
-                <span className="track-label me-2">BPM:</span>
-                <span className="track-value">{track.bpm}</span>
-              </div>
-              <div className="p-1 d-flex me-auto">
-                <span className="track-label me-2">Artist:</span>
-                <span className="track-value">{track.artist}</span>
-              </div>
-              <div className="p-1 d-flex me-auto">
-                <span className="track-label me-2">Year:</span>
-                <span className="track-value">{track.year}</span>
-              </div>
-              <div className="p-1 d-flex me-auto">
-                <span className="track-label me-2">Genre:</span>
-                <span className="track-value">{track.genre}</span>
-              </div>
-            </div>
-          </Card.Body>
-        </Col>
-
-        <Col lg="2">1 of 3</Col>
-      </Row>
-      <Card.Footer>
-        <Row>
-          <Col>Buttons</Col>
-        </Row>
-      </Card.Footer>
-    </Card>
+    <Col md={4}>
+      <Card id="trackCard" className="p-0 mb-3">
+        <Box
+          component="div"
+          className="position-relative"
+          id="track-media-card"
+        >
+          <IconButton
+            aria-label="add to favorites"
+            className="track-favorite-button position-absolute"
+          >
+            <FavoriteIcon />
+          </IconButton>
+          <CardMedia
+            component="img"
+            image={track.image}
+            alt="Live from space album cover"
+          />
+        </Box>
+        <CardContent className="track-media-content">
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            {track.artist}
+          </Typography>
+          <Typography variant="h3" sx={{ fontSize: 18 }} component="div">
+            {track.title}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Col>
   );
 }

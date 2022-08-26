@@ -22,9 +22,16 @@ export default function App() {
         </Col>
         <Col xs={10} id="page-content-wrapper" className="p-0">
           <Uploader />
-          <FolderList />
-          <hr />
-          <FileList />
+          <div className="inner-content p-4">
+            <Row>
+              <Col md={10}>
+                <FolderList />
+                <hr />
+                <FileList />
+              </Col>
+              <Col md={2}>empty Panel</Col>
+            </Row>
+          </div>
         </Col>
       </Row>
     </Container>
