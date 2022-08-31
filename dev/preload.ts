@@ -13,7 +13,7 @@ const exposedApi: ContextBridgeApi = {
     /*
       this is where I want the data to be added the JSON, and Database      
     */
-    saveDataToJson(filePath);
+    // saveDataToJson(filePath);
   },
 };
 

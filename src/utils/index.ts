@@ -1,39 +1,17 @@
 import * as fs from "fs";
 import path from "path";
 import { glob } from "glob";
-import NodeID3, { Tags } from "node-id3";
+import nodeID3, { Tags } from "node-id3";
 import { trackMeta } from "../../interfaces/";
 import { v4 as uuidv4 } from "uuid";
-import { pick } from "lodash";
+import _ from "lodash";
 
 interface DataSource {
   imageData: string;
   text: string;
-  filesSizeInBytes: string;
-  metaData: Partial<Tags>;
+  size: string;
+  metaData: Partial<Tags | Buffer>;
   fileName: string;
-}
-
-export interface trackMetaConverted {
-  id: string;
-  size: string | undefined;
-  fileName: string;
-  title: string | undefined;
-  artist: string | undefined;
-  bpm: string | undefined;
-  contentGroup: string | undefined;
-  genre: string | undefined;
-  remixArtist: string | undefined;
-  composer: string | undefined;
-  initialKey: string | undefined;
-  label: string | undefined;
-  year: string | undefined;
-  comment: string | null;
-  album: string;
-  publisher: string;
-  fileType: string;
-  image: string | undefined;
-  length: string;
 }
 
 // Using Glob to fetch the files from the Directory
@@ -60,10 +38,56 @@ export const isDirectory = (fileNames: string[]): boolean => {
   return check;
 };
 
+const getFileSize = (path: string) => {
+  const stats = fs.statSync(path).size;
+  return `${stats}`;
+};
+
 // Lets get the meta-tags with Nodeid-3
-const ID3Scan = async (path: string) => {
-  const nodeScan = await NodeID3.read(path, { noRaw: false });
-  return nodeScan;
+const nodeID3Scan = async (path: string) => {
+  const firstBuf = Buffer.alloc(1024);
+  const tags = {
+    size: `${getFileSize(path)}`,
+    fileName: path,
+    title: "Default Title",
+    artist: "Default Artist",
+    bpm: "98",
+    contentGroup: "Default contentGroup",
+    genre: "Default Genre",
+    remixArtist: "Default remixArtist",
+    composer: "Default Composer",
+    initialKey: "initialKey",
+    label: "label",
+    year: "9999",
+    comment: {
+      language: "eng",
+      text: "www.beatjunkies.com",
+    },
+    album: "Default Album",
+    publisher: "publisher",
+    fileType: "fileType",
+    length: "length",
+    popularimeter: {
+      email: "",
+      rating: 0,
+      counter: 0,
+    },
+    image: {
+      mime: "string",
+      type: {
+        id: 0,
+        name: "string",
+      },
+      description: "string",
+      imageBuffer: firstBuf,
+    },
+  };
+  const nodeScanFile = nodeID3.read(path);
+  if (_.isEmpty(nodeScanFile)) {
+    let file = fs.readFileSync(path);
+    await fs.writeFileSync(path, nodeID3.update(tags, file));
+  }
+  return nodeScanFile;
 };
 
 function humanFileSize(bytes: number, si = false, dp = 1) {
@@ -91,41 +115,11 @@ function humanFileSize(bytes: number, si = false, dp = 1) {
 }
 
 // convert the object to have all attributes
-function getTrackMetaData({
-  imageData,
-  text,
-  filesSizeInBytes,
-  metaData,
-  fileName,
-}: DataSource): trackMetaConverted {
-  return {
-    id: uuidv4(),
-    size: filesSizeInBytes ? filesSizeInBytes : "",
-    fileName: fileName,
-    title: metaData.title ? metaData.title : "",
-    artist: metaData.artist ? metaData.artist : "Add Artist Name",
-    bpm: metaData.bpm ? metaData.bpm : "",
-    remixArtist: metaData.remixArtist ? metaData.remixArtist : "",
-    composer: metaData.composer ? metaData.composer : "",
-    contentGroup: metaData.contentGroup ? metaData.contentGroup : "",
-    initialKey: metaData.initialKey ? metaData.initialKey : "",
-    label: metaData.publisher ? metaData.publisher : "",
-    year: metaData.year ? metaData.year : "",
-    genre: metaData.genre ? metaData.genre : "default genre",
-    album: metaData.album ? metaData.album : "default album",
-    fileType: metaData.fileType ? metaData.fileType : "",
-    image: imageData ? imageData : undefined,
-    length: metaData.length ? metaData.length : "",
-    comment: text ? text : "",
-    publisher: metaData.publisher ? metaData.publisher : "",
-  };
-}
 
 // grabbing the files, converting,
 export const getMetaData = async (dir: string) => {
-  const rootPath = dir;
   const fetchFiles = await fetchFilesData(dir);
-  let newFiles: trackMeta[] = [];
+  let newFiles = [];
 
   const defaultTags = [
     "title",
@@ -145,16 +139,18 @@ export const getMetaData = async (dir: string) => {
     "album",
     "fileType",
     "length",
+    "popularimeter",
   ];
 
   for (let fileName of fetchFiles) {
     // Getting the fileSize
-    const stats = fs.statSync(fileName).size;
-    const filesSizeInBytes = humanFileSize(stats);
+    const size = getFileSize(fileName);
+    //const filesSizeInBytes = humanFileSize(stats);
 
     // Scan for metadata
-    const audioTags = await ID3Scan(fileName);
-    const metaData = pick(audioTags, defaultTags);
+    const audioTags = await nodeID3Scan(fileName);
+    const metaData = _.pick(audioTags, defaultTags);
+    console.log("metaData", metaData);
     const { image, comment } = metaData;
     if (typeof image === "undefined" || typeof image === "string") continue;
     if (typeof comment === "undefined") continue;
@@ -169,16 +165,12 @@ export const getMetaData = async (dir: string) => {
     const data: DataSource = {
       imageData,
       text,
-      filesSizeInBytes,
+      size,
       metaData,
       fileName,
     };
-
-    const convertTags = getTrackMetaData(data);
-    // @ts-ignore
-    newFiles.push(convertTags);
+    // newFiles.push(convertTags);
   }
-  return newFiles;
 };
 
 export const saveDataToJson = (data: trackMeta[]) => {
@@ -203,3 +195,4 @@ module.exports = {
 // https://dev.to/dnature/convert-a-base64-data-into-an-image-in-node-js-3f88
 // https://stackoverflow.com/questions/18884840/adding-a-new-array-element-to-a-json-object
 // https://stackoverflow.com/questions/40381507/convert-base64-image-data-to-png
+// https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object

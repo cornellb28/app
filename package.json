@@ -82,6 +82,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "6",
     "react-split": "^2.0.14",
+    "safe-json-stringify": "^1.2.0",
     "sass": "^1.54.1",
     "uuid": "^8.3.2"
   },

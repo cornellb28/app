@@ -1,10 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
+import { useTheme } from '@mui/material/styles';
 import { styled } from "@mui/material/styles";
 import { trackMeta } from "../../interfaces";
 import { Col } from "react-bootstrap";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import Chip from "@mui/material/Chip";
 import {
   Box,
   Typography,
@@ -12,7 +11,8 @@ import {
   CardMedia,
   CardContent,
   IconButton,
-  Fab
+  Chip,
+  Grid,
 } from "@mui/material";
 
 type TRACK = {
@@ -29,6 +29,7 @@ const ListItem = styled("li")(({ theme }) => ({
 }));
 
 export default function FileCard({ track }: TRACK) {
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,49 +52,48 @@ export default function FileCard({ track }: TRACK) {
     );
   };
   return (
-    <Col md={4}>
-      <Card id="trackCard" className="p-0 mb-3">
-        <Box
-          component="div"
-          className="position-relative"
-          id="track-media-card"
-        >
-          <IconButton
-            aria-label="add to favorites"
-            className="track-favorite-button position-absolute"
-          >
-            <FavoriteIcon />
-          </IconButton>
+    <Col md={6}>
+      <Card id="trackCard" className="p-0 mb-3 d-flex">
+        <Box sx={{ position: "relative" }}>
           <CardMedia
+            sx={{ width: 200 }}
             component="img"
-            image={track.image}
             alt="Live from space album cover"
           />
         </Box>
-        <CardContent className="track-media-content">
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {track.artist}
-          </Typography>
-          <Typography variant="h3" sx={{ fontSize: 18 }} component="div">
-            {track.title}
-          </Typography>
-        </CardContent>
-        <div>
-          {chipData.map((data) => {
-            let icon;
-            return (
-              <ListItem key={data.key}>
-                <Chip
-                  icon={icon}
-                  label={data.label}
-                  onDelete={
-                    data.label === "React" ? undefined : handleDelete(data)
-                  }
-                />
-              </ListItem>
-            );
-          })}
-        </div>
+        <Box sx={{ display: "flex", flexDirection: "column" }} className="p-2">
+          <CardContent sx={{ flex: "1 0 auto" }} className="p-0">
+            <Typography component="div" variant="h6">
+              {track.title}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              component="div"
+            >
+              {track.artist}
+            </Typography>
+            <Box
+              sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
+            ></Box>
+          </CardContent>
+          <Grid container spacing={1}>
+            {chipData.map((data) => {
+              let icon;
+              return (
+                <Grid item key={data.key}>
+                  <Chip
+                    icon={icon}
+                    label={data.label}
+                    onDelete={
+                      data.label === "React" ? undefined : handleDelete(data)
+                    }
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
       </Card>
     </Col>
   );

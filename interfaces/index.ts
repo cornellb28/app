@@ -19,12 +19,30 @@ export interface trackMeta {
   initialKey?: string | undefined;
   label: string | undefined;
   year?: string | undefined;
-  comment?: { text: string } | null;
+  comment?: {
+    language: string;
+    text: string;
+  };
   album?: string;
   publisher?: string;
   fileType?: string;
-  image?: { imageBuffer: Buffer } | undefined;
+  image?:
+    | string
+    | {
+        mime: string;
+        type: {
+          id: number;
+          name: string;
+        };
+        description: string;
+        imageBuffer: Buffer;
+      };
   length?: string;
+  popularimeter: {
+    email: string;
+    rating: number;
+    counter: number;
+  };
 }
 
 // export type TrackMeta = trackMeta[];
